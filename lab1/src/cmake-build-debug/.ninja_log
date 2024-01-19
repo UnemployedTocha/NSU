@@ -1,0 +1,7 @@
+# ninja log v5
+1	200	7236379461400065	build.ninja	5463870e3a25730b
+8	2358	7236321978068582	CMakeFiles/NewLab1.dir/main.cpp.obj	288723670cd79506
+204	4067	7236379330471343	CMakeFiles/NewLab1.dir/UnorderedList.cpp.obj	5ad5d484570a43ab
+200	4066	7236379330465011	CMakeFiles/NewLab1.dir/HashTable.cpp.obj	89e5e41bdd4e4983
+2	5694	7236379346751721	CMakeFiles/NewLab1.dir/test.cpp.obj	6ebba557f207fdbe
+5694	7612	7236379365669101	NewLab1.exe	67dac17e06fcd23f

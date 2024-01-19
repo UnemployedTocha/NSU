@@ -1,0 +1,13 @@
+# ninja log v5
+1	2158	7236379562763624	CMakeFiles/NewLab1.dir/HashTable.cpp.obj	eb97538e7db4592c
+8	2162	7236379562763624	CMakeFiles/NewLab1.dir/UnorderedList.cpp.obj	8a963f36e2f54a1d
+12	3901	7236379580342677	CMakeFiles/NewLab1.dir/test.cpp.obj	6b7eb667df6ebcc6
+3902	5059	7236379591889945	NewLab1.exe	8a751c8498c1549d
+2	1507	7236382406354976	CMakeFiles/NewLab1.dir/UnorderedList.cpp.obj	8a963f36e2f54a1d
+318	3300	7236382424283792	CMakeFiles/NewLab1.dir/test.cpp.obj	6b7eb667df6ebcc6
+2	732	7236382646889168	CMakeFiles/NewLab1.dir/HashTable.cpp.obj	eb97538e7db4592c
+733	2330	7236382662793933	NewLab1.exe	8a751c8498c1549d
+2	796	7236383361924785	CMakeFiles/NewLab1.dir/UnorderedList.cpp.obj	8a963f36e2f54a1d
+811	1823	7236383372533840	NewLab1.exe	8a751c8498c1549d
+3	2667	7236567191159677	CMakeFiles/NewLab1.dir/UnorderedList.cpp.obj	8a963f36e2f54a1d
+2668	6007	7236567224498223	NewLab1.exe	8a751c8498c1549d
