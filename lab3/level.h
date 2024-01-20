@@ -3,21 +3,13 @@
 
 #include <vector>
 #include <QString>
-
-enum class FieldType {
-    WALL,
-    EMPTY,
-    PLAYER,
-    PLAYER_ON_GOAL,
-    BOX,
-    BOX_ON_GOAL,
-    GOAL
-};
+#include "fieldtype.h"
 
 class Level
 {
 public:
     Level() = delete;
+    ~Level() = default;
     Level(QString lvlNum);
 
     void MoveUp();
@@ -31,16 +23,13 @@ public:
     void saveGame(QString fileName = "user_save");
     void saveUserData(const QString& userName);
 
+    void newGame();
     void restart();
-    bool CheckWin();
+    const bool CheckWin();
 
-    void InitializeUserData();
-    const unsigned GetLineNumb();
     const unsigned GetStepsCounter();
-    unsigned GetLevelNumb();
-
-    std::vector<FieldType>::iterator Begin(unsigned lineNum);
-    std::vector<FieldType>::iterator End(unsigned lineNum);
+    const unsigned GetLevelNumb();
+    const std::vector<std::vector<FieldType>> GetGameField() const;
 
 private:
     std::vector<std::vector<FieldType>> gameField_;
@@ -51,14 +40,14 @@ private:
     unsigned boxOnGoalNum_ = 0;
 
     QString currentLevel = 0;
+    unsigned steps = 0;
     QString saveCurrentLevel = 0;
     unsigned saveSteps = 0;
-    unsigned steps = 0;
 
     std::vector<std::pair<unsigned, unsigned>> UserData_;
     bool isPlayerOnGoal_;
 
-
+    void InitializeUserData();
     FieldType ObjAfterMoving();
     void IncrementFieldData(const FieldType& obj);
     FieldType QCharToFieldTypeConvertion(QChar ch);

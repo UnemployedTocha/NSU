@@ -1,15 +1,18 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include "level.h"
+#include "fieldtype.h"
 #include <QGraphicsScene>
 #include <QTableWidget>
 #include <QGraphicsView>
+#include <vector>
+
 class View
 {
 public:
     View(QGraphicsView* graphicsView, QGraphicsScene* scene, QTableWidget* leaderBoard);
-    void PaintField(Level* lvl);
+    ~View() = default;
+    void PaintField(const std::vector<std::vector<FieldType>>& lvlField, unsigned stepsNumb);
     void PaintLeaderBoard();
 private:
     struct UserData {
@@ -18,7 +21,6 @@ private:
         QString userName;
     };
 
-    bool isleaderBoardPainted = false;
     QGraphicsView* graphicsView_;
     QGraphicsScene* scene_;
     QTableWidget* leaderBoard_;
