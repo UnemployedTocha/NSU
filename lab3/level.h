@@ -25,7 +25,7 @@ public:
 
     void newGame();
     void restart();
-    const bool CheckWin();
+    bool CheckWin();
 
     const unsigned GetStepsCounter();
     const unsigned GetLevelNumb();

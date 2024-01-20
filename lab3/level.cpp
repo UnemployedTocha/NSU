@@ -501,11 +501,11 @@ void Level::saveUserData(const QString& userName)
     if(leaderboardFile.open(QIODevice::WriteOnly | QFile::Truncate)) {
         QTextStream s(&leaderboardFile);
         int tempSum = 0;
-        std::for_each(UserData_.begin(), UserData_.end(), [&tempSum](std::pair<unsigned, unsigned> pair){tempSum += pair.first;});
+        std::for_each(UserData_.begin(), UserData_.end(), [&tempSum](auto pair){tempSum += pair.first;});
         s << tempSum;
         s << " ";
         tempSum = 0;
-        std::for_each(UserData_.begin(), UserData_.end(), [&tempSum](auto pair){tempSum += pair.second;});
+        std::for_each(UserData_.begin(), UserData_.end(), [&tempSum](auto pair){tempSum += pair.second;}); // Заменимо на std::acamulate
         s << tempSum;
         s << " ";
         s << userName;
@@ -531,7 +531,7 @@ const unsigned Level::GetStepsCounter()
     return steps;
 }
 
-const bool Level::CheckWin()
+bool Level::CheckWin()
 {
     if(boxOnGoalNum_ == goalNum_) {
         UserData_[currentLevel.toInt() - 1].first = 1;
