@@ -1,15 +1,15 @@
-package view;
+package org.example.view;
 
 import java.io.IOException;
 import java.util.List;
 
-import entities.Blinky;
-import entities.Pinky;
-import entities.Inky;
-import entities.Clyde;
-import entities.Ghost;
-import entities.Player;
-import gameField.GameField;
+import org.example.entities.Blinky;
+import org.example.entities.Pinky;
+import org.example.entities.Inky;
+import org.example.entities.Clyde;
+import org.example.entities.Ghost;
+import org.example.entities.Player;
+import org.example.gameField.GameField;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -41,12 +41,14 @@ public class GamePanel extends JPanel {
     private BufferedImage[] inkyAssets;
     private BufferedImage[] clydeAssets;
     private BufferedImage[] pacmanPic;
+    private BufferedImage scaryGhostPic;
     private BufferedImage coinPic;
     private BufferedImage cherryPic;
     private BufferedImage blinkyPic;
     private BufferedImage pinkyPic;
     private BufferedImage inkyPic;
     private BufferedImage clydePic;
+    private BufferedImage heartPic;
     private Player player;
     private List<Ghost> ghosts;
     private GameField.FieldType[][] gameField;
@@ -120,8 +122,9 @@ public class GamePanel extends JPanel {
         clydeAssets[Dir.DOWN.GetValue()] =  ImportAsset("Clyde/ClydeDown.png");
 
         coinPic = ImportAsset("Dot.png");
-        cherryPic = ImportAsset("Cherry.jpg");
-
+        cherryPic = ImportAsset("Fruit.png");
+        scaryGhostPic = ImportAsset("EatableGhost/EatableGhost.png");
+        heartPic = ImportAsset("Heart.png");
     }
     public GamePanel(Player player, List<Ghost> ghosts, GameField.FieldType[][] gameField, int tileSize) {
         this.tileSize = tileSize;
@@ -144,12 +147,11 @@ public class GamePanel extends JPanel {
                 if (gameField[i][j].equals(GameField.FieldType.WALL)) {
                     g.drawImage(wallPic,j*tileSize, i*tileSize, tileSize, tileSize, null);
                 } else if(gameField[i][j].equals(GameField.FieldType.BLOCK_WITH_COINS)) {
-                    g.setColor(Color.yellow);
                     g.drawImage(coinPic,j*tileSize + tileSize/3 , i*tileSize + tileSize/3, tileSize/3, tileSize/3, null);
                 } else if(gameField[i][j].equals(GameField.FieldType.FRUIT)) {
-                    g.drawImage(cherryPic,j*tileSize, i*tileSize, tileSize, tileSize, null);
+//                    g.drawImage(cherryPic,j*tileSize, i*tileSize, tileSize, tileSize, null);
                 } else if(gameField[i][j].equals(GameField.FieldType.POWER_PELLET)) {
-                    g.drawImage(coinPic,j*tileSize , i*tileSize, tileSize, tileSize, null);
+                    g.drawImage(cherryPic,j*tileSize , i*tileSize, tileSize, tileSize, null);
                 }
 
             }
@@ -157,7 +159,9 @@ public class GamePanel extends JPanel {
     }
     void PaintGhosts(Graphics g) {
         for(Ghost ghost : ghosts) {
-            if(ghost instanceof Blinky) {
+            if(ghost.IsScary()) {
+                g.drawImage(scaryGhostPic, ghost.GetX() , ghost.GetY(), tileSize, tileSize, null);
+            } else if(ghost instanceof Blinky) {
                 blinkyPic = RotateGhosts(ghost, blinkyAssets);
                 g.drawImage(blinkyPic, ghost.GetX() , ghost.GetY(), tileSize, tileSize, null);
             } else if(ghost instanceof Pinky) {
@@ -194,16 +198,20 @@ public class GamePanel extends JPanel {
 
     }
     public void RotatePlayer(int dx, int dy) {
-    if(dx > 0) {
-        System.arraycopy(pacmanAssets[0], 0, pacmanPic, 0, pacmanPic.length);
-    } else if(dx < 0) {
-        System.arraycopy(pacmanAssets[1], 0, pacmanPic, 0, pacmanPic.length);
-    } else if(dy > 0) {
-        System.arraycopy(pacmanAssets[3], 0, pacmanPic, 0, pacmanPic.length);
-    } else {
-        System.arraycopy(pacmanAssets[2], 0, pacmanPic, 0, pacmanPic.length);
+        if(dx > 0) {
+            System.arraycopy(pacmanAssets[0], 0, pacmanPic, 0, pacmanPic.length);
+        } else if(dx < 0) {
+            System.arraycopy(pacmanAssets[1], 0, pacmanPic, 0, pacmanPic.length);
+        } else if(dy > 0) {
+            System.arraycopy(pacmanAssets[3], 0, pacmanPic, 0, pacmanPic.length);
+        } else {
+            System.arraycopy(pacmanAssets[2], 0, pacmanPic, 0, pacmanPic.length);
+        }
     }
-
+    public void DrawLifes(Graphics g) {
+        for(int i = 0; i < player.GetLifesNum(); ++i) {
+            g.drawImage(heartPic, windowWidth - (i + 1)*tileSize, windowHeight - tileSize, tileSize, tileSize, null);
+        }
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -211,6 +219,7 @@ public class GamePanel extends JPanel {
         PaintGhosts(g);
         RotatePlayer(player.GetDx(), player.GetDy());
         g.drawImage(pacmanPic[pacmanAnimationIndex],player.GetX(), player.GetY(), player.GetHeight(), player.GetWidth(), null);
+        DrawLifes(g);
         UpdateAnimation();
 
     }

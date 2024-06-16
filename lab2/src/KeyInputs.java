@@ -1,5 +1,7 @@
-import entities.Player;
-import view.GamePanel;
+package org.example;
+
+import org.example.entities.Player;
+import org.example.view.GamePanel;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;

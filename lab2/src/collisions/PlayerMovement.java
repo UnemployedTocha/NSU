@@ -1,7 +1,7 @@
-package collisions;
+package org.example.collisions;
 
-import entities.Player;
-import gameField.GameField;
+import org.example.entities.Player;
+import org.example.gameField.GameField;
 
 public class PlayerMovement extends EntityMovement{
     static public boolean IsInputSpeedAllowsToMove(Player player, GameField gameField, int tileSize) {

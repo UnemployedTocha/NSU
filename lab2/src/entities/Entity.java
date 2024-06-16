@@ -1,6 +1,6 @@
-package entities;
+package org.example.entities;
 
-import gameField.GameField;
+import org.example.gameField.GameField;
 
 import java.awt.*;
 
@@ -12,6 +12,7 @@ public abstract class Entity {
     protected int width;
     protected int height;
     protected int tileSize;
+    boolean isSleeping = true;
     GameField gameField;
     protected Rectangle hitbox;
     void SetHitbox() {
@@ -34,6 +35,9 @@ public abstract class Entity {
     }
 
     public void Update() {
+        if(isSleeping) {
+            return;
+        }
         x += dx;
         y += dy;
         hitbox.x = x;
